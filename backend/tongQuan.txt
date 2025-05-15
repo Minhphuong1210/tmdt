@@ -1,0 +1,31 @@
+- làm admin trước (laravel api)
++ đăng ký đăng nhập (tạo token kiểm gửi), phân quyền (permission) 
++phân quyền 4 bảng 
+
+. bảng roles ( người quản trị  , người dùng , người đăng bài , người duyệt đơn) tên chức vụ  molde roles 
+ví dụ : 
+quản lý   1 
+nhân viên 2 
+. permission (tất cả các quyền , có thể sửa , ) model permission 
+
++ quyền sửa 1
++ quyển xóa 2 
+
+. 1 trung gian giữa roles_permission  ( người dùng) và admin ( admin có quyền này , user->duyệt đơn) model roles_permisions
+
+quản lý người a xóa 1
+
+quan trị _sửa 2 
+
+
+. quyền lưu quyền users_roles_permission  để biết người này có quyền nào 
+người a  _ quản trị_xóa
+
+người b _ quản trị_xửa 
+
+
+
++ Giao diện bên trong làm bằng vue js 
++ quản lý danh mục ( danh mục cha con ) , sản phẩm ( ) , quản lý người dùng 
+=> cách làm tạo bảng model, xử lí dữ liệu ở controller thôi không đụng giao diện ( vì giao diện chung) 
+=> tìm hiểu thông tin bảo mật viết api quy chuẩn 
