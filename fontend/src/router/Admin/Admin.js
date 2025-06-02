@@ -17,8 +17,13 @@ const admin = [
   },
   {
     path: "/auth/login",
-    name:"admin.login",
+    name: "admin.login",
     component: () => import("../../pages/Admin/Auth/Login.vue"),
+  },
+  {
+    path: "/auth/register",
+    name: "admin.register",
+    component: () => import("../../pages/Admin/Auth/register.vue"),
   },
 ];
 
