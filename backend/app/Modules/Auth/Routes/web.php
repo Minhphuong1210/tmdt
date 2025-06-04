@@ -19,4 +19,5 @@ use App\Modules\Product\Controllers\Admins\ProductController;
 // });
 
 
-Route::post('/auth/login',[AuthAdminController::class,'login']);
+Route::post('/auth/login',[AuthAdminController::class,'login'])->name('auth.login');
+Route::get('/test',[AuthAdminController::class,'test']);

@@ -54,15 +54,15 @@
           <form @submit.prevent="login">
             <div class="mb-3">
               <label for="email" class="form-label"
-                >Email <span style="color: red">*</span></label
+                >Nhập số điện thoại hoặc email <span style="color: red">*</span></label
               >
               <input
-                type="email"
+                type="text"
                 class="form-control"
                 id="email"
                 placeholder="Enter email address"
                 required
-                v-model="email"
+                v-model="text"
               />
             </div>
 
@@ -214,17 +214,23 @@
 </style>
 <script setup>
 import { reactive, ref, toRefs } from "vue";
+
 const data = reactive({
-  email: "",
+  text: "",
   password: "",
 });
-const { email, password } = toRefs(data);
+const { text, password } = toRefs(data);
 const login = () => {
-  console.log(email.value);
   console.log(password.value);
+  // console.log(axios);
+
   axios
-    .post("")
-    .then(function (response) {})
-    .catch(function (error) {});
+    .post('/auth/login',data)
+    .then(function (response) {
+      // đúng
+    })
+    .catch(function (error) {
+//  sai 
+    });
 };
 </script>
