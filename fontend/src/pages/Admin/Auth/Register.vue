@@ -1,115 +1,142 @@
 <template>
-  <div class="container bg_login my-5">
-    <div class="row g-0 h-100">
-      <div class="col-6 left-section">
-        <div class="logo">VELZON</div>
-        <div class="quote-section">
-          <div
-            id="carouselExampleControls"
-            class="carousel slide"
-            data-bs-ride="carousel"
-          >
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <p>Chào mừng bạn</p>
+  <div class="bg_login">
+    <div class="box-section container">
+      <div class="row g-0 h-100">
+        <div class="col-6 left-section">
+          <div class="logo">VELZON</div>
+          <div class="quote-section">
+            <div
+              id="carouselExampleControls"
+              class="carousel slide"
+              data-bs-ride="carousel"
+            >
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <p>Chào mừng bạn</p>
+                </div>
+                <div class="carousel-item">
+                  <p>Đến với chúng tôi</p>
+                </div>
+                <div class="carousel-item">
+                  <p>hahahah</p>
+                </div>
               </div>
-              <div class="carousel-item">
-                <p>Đến với chúng tôi</p>
-              </div>
-              <div class="carousel-item">
-                <p>hahahah</p>
-              </div>
+              <button
+                class="carousel-control-prev"
+                type="button"
+                data-bs-target="#carouselExampleControls"
+                data-bs-slide="prev"
+              >
+                <span
+                  class="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button
+                class="carousel-control-next"
+                type="button"
+                data-bs-target="#carouselExampleControls"
+                data-bs-slide="next"
+              >
+                <span
+                  class="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Next</span>
+              </button>
             </div>
-            <button
-              class="carousel-control-prev"
-              type="button"
-              data-bs-target="#carouselExampleControls"
-              data-bs-slide="prev"
-            >
-              <span
-                class="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button
-              class="carousel-control-next"
-              type="button"
-              data-bs-target="#carouselExampleControls"
-              data-bs-slide="next"
-            >
-              <span
-                class="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Next</span>
-            </button>
           </div>
         </div>
-      </div>
-      <div class="col-6 right-section">
-        <h2 class="mb-3">Đăng ký tài khoản</h2>
-        <p class="text-muted mb-4">
-          Hãy tạo tài khoản Velzon miễn phí ngay bây giờ
-        </p>
-        <form @submit.prevent="register">
-          <div class="mb-3">
-            <label for="email" class="form-label"
-              >Email <span style="color: red">*</span></label
-            >
-            <input
-              type="email"
-              class="form-control"
-              id="email"
-              placeholder="Enter email address"
-              required
-              v-model="email"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="username" class="form-label"
-              >Username <span style="color: red">*</span></label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="username"
-              placeholder="Enter username"
-              required
-              v-model="username"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label"
-              >Password <span style="color: red">*</span></label
-            >
-            <input
-              type="password"
-              class="form-control"
-              id="password"
-              placeholder="Enter password"
-              required
-              v-model="password"
-            />
-          </div>
-          <div class="mb-3">
-            <p class="text-muted small">
-              By registering you agree to the Velzon
-              <a href="#" class="text-decoration-none text-teal"
-                >Terms of Use</a
+        <div class="col-6 right-section">
+          <h2 class="mb-3">Welcome Back !</h2>
+          <p class="text-muted mb-4">Sign in to continue to Velzon.</p>
+          <form @submit.prevent="login">
+            <div class="mb-3">
+              <label for="name" class="form-label"
+                >name <span style="color: red">*</span></label
               >
+              <input
+                type="text"
+                class="form-control"
+                id="email"
+                placeholder="Enter name"
+                required
+                v-model="name"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label"
+                >Email <span style="color: red">*</span></label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="Enter email"
+                required
+                v-model="gmail"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label"
+                >Phone <span style="color: red">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="email"
+                placeholder="Enter phone"
+                required
+                v-model="tel"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label"
+                >Address <span style="color: red">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="email"
+                placeholder="Enter address"
+                required
+                v-model="address"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label"
+                >Password <span style="color: red">*</span></label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                placeholder="Enter password"
+                required
+                autocomplete
+                v-model="password"
+              />
+            </div>
+            <div class="mb-3">
+              <p class="text-muted small">
+                By registering you agree to the Velzon
+                <a href="#" class="text-decoration-none text-teal"
+                  >Terms of Use</a
+                >
+              </p>
+            </div>
+            <button type="submit" class="btn btn-custom text-white w-100 py-2">
+              Sign in
+            </button>
+          </form>
+
+          <div class="text-center mt-3">
+            <p class="text-muted">
+              Don't have an account ?
+              <a href="#" class="text-decoration-none text-teal">Signup</a>
             </p>
           </div>
-          <button type="submit" class="btn btn-custom text-white w-100 py-2">
-            Đăng ký
-          </button>
-        </form>
-
-        <div class="text-center mt-3">
-          <p class="text-muted">
-            Đã có tài khoản?
-            <a href="#" class="text-decoration-none text-teal">Đăng nhập</a>
-          </p>
         </div>
       </div>
     </div>
@@ -118,10 +145,24 @@
 
 <style>
 .bg_login {
+  width: 100%;
+  height: auto;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(to right, #a8dadc, #1d3557);
+}
+.box-section {
+  width: 100%;
+  height: 70%;
+}
+.left-section {
   background-color: #405188;
 }
 .left-section {
   background: url("https://via.placeholder.com/150") no-repeat center center;
+  background-color: #405188;
   background-size: cover;
   position: relative;
   padding: 30px;
@@ -208,22 +249,40 @@
   top: -24px;
   left: 24px;
 }
+.right-section {
+  background: white;
+}
 </style>
 <script setup>
 import { reactive, ref, toRefs } from "vue";
+import api from "@/axios";
+import axios from "axios";
+
 const data = reactive({
-  email: "",
-  username: "",
+  name: "",
+  gmail: "",
+  tel: "",
+  address: "",
   password: "",
 });
-const { email, username, password } = toRefs(data);
-const register = () => {
-  console.log(email.value);
-  console.log(password.value);
-  console.log(username.value);
-  axios
-    .post()
-    .then(function (response) {})
-    .catch(function (error) {});
+const errors = ref({});
+const { name, gmail, tel, address, password } = toRefs(data);
+const login = () => {
+  api
+    .post("/auth/register", data)
+    .then(function (response) {
+      // đúng
+      console.log(1);
+      console.log(response);
+    })
+    .catch(function (error) {
+      //  sai
+      console.log(2);
+
+      if (error.status == 422) {
+        errors.value = error.response.data.errors;
+      }
+      console.log(errors.value.gmail[0]);
+    });
 };
 </script>

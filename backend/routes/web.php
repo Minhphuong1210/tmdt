@@ -18,8 +18,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-require base_path('app/Modules/Product/routes/web.php');
-require base_path('app/Modules/Auth/routes/web.php');
-
-
-
+// require base_path('app/Modules/Product/routes/web.php');
+// require base_path('app/Modules/Auth/routes/web.php');

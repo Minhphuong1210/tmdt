@@ -54,7 +54,8 @@
           <form @submit.prevent="login">
             <div class="mb-3">
               <label for="email" class="form-label"
-                >Nhập số điện thoại hoặc email <span style="color: red">*</span></label
+                >Nhập số điện thoại hoặc email
+                <span style="color: red">*</span></label
               >
               <input
                 type="text"
@@ -76,6 +77,7 @@
                 id="password"
                 placeholder="Enter password"
                 required
+                autocomplete
                 v-model="password"
               />
             </div>
@@ -214,23 +216,26 @@
 </style>
 <script setup>
 import { reactive, ref, toRefs } from "vue";
+import api from "@/axios";
+import axios from "axios";
 
 const data = reactive({
-  text: "",
-  password: "",
+  text: "abc@gmail.com",
+  password: "123456",
 });
 const { text, password } = toRefs(data);
 const login = () => {
-  console.log(password.value);
-  // console.log(axios);
-
-  axios
-    .post('/auth/login',data)
+  api
+    .post("/auth/login", data)
     .then(function (response) {
       // đúng
+      console.log(1);
+      console.log(response);
     })
     .catch(function (error) {
-//  sai 
+      //  sai
+      console.log(2);
+      console.log(error);
     });
 };
 </script>

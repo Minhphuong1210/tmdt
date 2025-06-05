@@ -3,6 +3,7 @@
 use App\Modules\Auth\Controllers\Admins\AuthAdminController;
 use App\Modules\Product\Controllers\Admins\ProductController;
 
+
 // Route::get('/test',[ProductController::class,'getIndex']);
 
 // Route::group(['prefix' => 'admin'], function () {
@@ -19,5 +20,7 @@ use App\Modules\Product\Controllers\Admins\ProductController;
 // });
 
 
-Route::post('/auth/login',[AuthAdminController::class,'login'])->name('auth.login');
-Route::get('/test',[AuthAdminController::class,'test']);
+Route::post('/auth/login', [AuthAdminController::class, 'login'])->name('auth.login');
+Route::post('/auth/register', [AuthAdminController::class, 'register'])->name('auth.register');
+
+Route::get('/test', [AuthAdminController::class, 'test']);

@@ -1,18 +1,18 @@
 <?php
+
 namespace App\Modules\Auth\Controllers\Admins;
 
 use App\Http\Controllers\CRUDController;
 use App\Modules\Auth\Models\Admin;
 use DB;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthAdminController
-    // extends CRUDController
+// extends CRUDController
 {
-
-
     protected $module = [
         'code' => 'products',
         'lable' => 'Danh sách sản phẩm',
@@ -41,60 +41,32 @@ class AuthAdminController
         if (!$_POST) {
             return view('Admin.product.add');
         }
-
     }
 
 
     public function login(Request $request)
     {
-
-        // $admin=Admin::where('email',$request->email)->first();
-
-        // if($admin){
-        //     $data=$request->only('email','password');
-        // }
-        // else{
-        //     $admin=Admin::where('tel',$request->email)->first();
-        //     if($admin){
-        //         $data=$request->only('tel','password');
-        //     }
-        //     else{
-        //         return response()->json([
-        //             'status'=>400,
-        //             'message'=>'Không tìm thấy người dùng',
-        //         ],400);
-        //     }
-        // }
-
         $filler = filter_var($request->text, FILTER_VALIDATE_EMAIL) ? 'gmail' : 'tel';
-
-
         if ($filler == 'gmail') {
             $data = [
                 'gmail' => $request->text,
                 'password' => $request->password,
-
             ];
             $admin = Admin::where('gmail', $request->text)->first();
         } else {
             $data = [
                 'tel' => $request->text,
                 'password' => $request->password,
-
             ];
             $admin = Admin::where('tel', $request->text)->first();
         }
-
         if (Auth::guard('admins')->attempt($data)) {
-
             // plainTextToken là chuỗi token thô (raw token) được tạo ra bởi Laravel Sanctum sau khi gọi createToken()
             $token = $admin->createToken('token')->plainTextToken;
-
             $data = [
                 'token' => $token,
                 'admin' => $admin
             ];
-
             return response()->json([
                 'status' => 200,
                 'data' => $data,
@@ -105,12 +77,39 @@ class AuthAdminController
             'status' => 400,
             'message' => 'Đăng nhập không thành công',
         ], 400);
-
+    }
+    public function test()
+    {
+        return view('test');
     }
 
-public function test(){
-    return view('test');
+    public function register(Request $request)
+    {
+        $validate = $request->validate(
+            [
+                'gmail' => 'unique:admins,gmail',
+                'tel' => 'unique:admins,tel',
+            ],
+            [
+                'gmail.unique' => 'Gmail đã tồn tại.',
+                'gmail.tel' => 'Số điện thoại đã tồn tại.',
+            ]
+        );
+        try {
+            $data = $request->only(['name', 'address', 'gmail', 'tel']);
+            $data['password'] = Hash::make($request->password);
+            Admin::create($data);
+            return response()->json([
+                'status' => 200,
+                'message' => 'Đăng ký thành công',
+            ], 200);
+        } catch (Exception $e) {
+            // xử lý lỗi
+            return response()->json([
+                'status' => 400,
+                'data' => $e,
+                'message' => 'Đăng ký thất bại',
+            ], 400);
+        }
+    }
 }
-
-}
-
