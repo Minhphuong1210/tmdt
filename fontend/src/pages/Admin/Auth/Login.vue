@@ -50,7 +50,10 @@
         </div>
         <div class="col-6 right-section">
           <h2 class="mb-3">Welcome Back !</h2>
-          <p class="text-muted mb-4">Sign in to continue to Velzon.</p>
+          <p class="text-muted mb-3">Sign in to continue to Velzon.</p>
+
+          <div v-if="errors" class="error-login mb-2">{{ errors }}</div>
+
           <form @submit.prevent="login">
             <div class="mb-3">
               <label for="email" class="form-label"
@@ -213,29 +216,36 @@
 .right-section {
   background: white;
 }
+.error-login {
+  padding: 10px 30px;
+  background: #ec8d84;
+  color: white;
+  border-radius: 5px;
+  font-size: 15px;
+}
 </style>
 <script setup>
 import { reactive, ref, toRefs } from "vue";
 import api from "@/axios";
 import axios from "axios";
+import { useAuthStore } from "../../../stores/auth.js";
+
+const errors = ref("");
 
 const data = reactive({
-  text: "abc@gmail.com",
-  password: "123456",
+  text: "",
+  password: "",
 });
 const { text, password } = toRefs(data);
-const login = () => {
-  api
-    .post("/auth/login", data)
-    .then(function (response) {
-      // đúng
-      console.log(1);
-      console.log(response);
-    })
-    .catch(function (error) {
-      //  sai
-      console.log(2);
-      console.log(error);
-    });
+const auth = useAuthStore();
+const login = async () => {
+  try {
+    await auth.login({ ...data });
+    console.log(1);
+    // router.push("/dashboard");
+  } catch (error) {
+    errors.value = error.response.data.message;
+    console.log(errors.value);
+  }
 };
 </script>

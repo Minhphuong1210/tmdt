@@ -1,18 +1,16 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useAuthStore } from '../../stores/auth'
 const admin = [
   {
     path: "/admin",
     component: () => import("../../views/backend/AdminView.vue"),
-
-
-
+    meta: { requiresAuth: true },
     children: [
       {
         path: "dashboard",
         name: "dashboard",
         component: () => import("../../pages/Admin/Doashboard.vue"),
       },
-
     ],
   },
   {

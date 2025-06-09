@@ -51,7 +51,7 @@
         <div class="col-6 right-section">
           <h2 class="mb-3">Welcome Back !</h2>
           <p class="text-muted mb-4">Sign in to continue to Velzon.</p>
-          <form @submit.prevent="login">
+          <form @submit.prevent="register">
             <div class="mb-3">
               <label for="name" class="form-label"
                 >name <span style="color: red">*</span></label
@@ -77,6 +77,9 @@
                 required
                 v-model="gmail"
               />
+              <div v-if="errors.gmail">
+                <p class="text-danger">Lỗi:{{ errors.gmail[0] }}</p>
+              </div>
             </div>
             <div class="mb-3">
               <label for="email" class="form-label"
@@ -90,6 +93,9 @@
                 required
                 v-model="tel"
               />
+              <div v-if="errors.tel">
+                <p class="text-danger">Lỗi:{{ errors.tel[0] }}</p>
+              </div>
             </div>
             <div class="mb-3">
               <label for="email" class="form-label"
@@ -257,6 +263,7 @@
 import { reactive, ref, toRefs } from "vue";
 import api from "@/axios";
 import axios from "axios";
+import { useAuthStore } from "../../../stores/auth.js";
 
 const data = reactive({
   name: "",
@@ -265,24 +272,15 @@ const data = reactive({
   address: "",
   password: "",
 });
+const auth = useAuthStore();
 const errors = ref({});
 const { name, gmail, tel, address, password } = toRefs(data);
-const login = () => {
-  api
-    .post("/auth/register", data)
-    .then(function (response) {
-      // đúng
-      console.log(1);
-      console.log(response);
-    })
-    .catch(function (error) {
-      //  sai
-      console.log(2);
-
-      if (error.status == 422) {
-        errors.value = error.response.data.errors;
-      }
-      console.log(errors.value.gmail[0]);
-    });
+const register = async () => {
+  try {
+    await auth.register({ ...data });
+  } catch (error) {
+    errors.value = error.response.data.errors;
+    // console.log(error.response.data.errors);
+  }
 };
 </script>
