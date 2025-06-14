@@ -88,7 +88,7 @@
               <input
                 type="text"
                 class="form-control"
-                id="email"
+                id="phone"
                 placeholder="Enter phone"
                 required
                 v-model="tel"
@@ -102,13 +102,19 @@
                 >Address <span style="color: red">*</span></label
               >
               <input
-                type="text"
+                list="city"
                 class="form-control"
-                id="email"
+                id="address"
                 placeholder="Enter address"
                 required
                 v-model="address"
               />
+              <datalist id="city">
+                <option value="Hà nội"></option>
+                <option value="TP.Hồ Chí Minh"></option>
+                <option value="Hải Dương"></option>
+                <option value="Quảng Ninh"></option>
+              </datalist>
             </div>
             <div class="mb-3">
               <label for="password" class="form-label"
@@ -264,6 +270,8 @@ import { reactive, ref, toRefs } from "vue";
 import api from "@/axios";
 import axios from "axios";
 import { useAuthStore } from "../../../stores/auth.js";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 const data = reactive({
   name: "",
@@ -278,9 +286,11 @@ const { name, gmail, tel, address, password } = toRefs(data);
 const register = async () => {
   try {
     await auth.register({ ...data });
+
+    router.push({ name: "admin.login" });
   } catch (error) {
     errors.value = error.response.data.errors;
-    // console.log(error.response.data.errors);
+    console.log(error.response.data.errors);
   }
 };
 </script>

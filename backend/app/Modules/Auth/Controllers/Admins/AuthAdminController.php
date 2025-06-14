@@ -64,13 +64,13 @@ class AuthAdminController
             if (Auth::guard('admins')->attempt($data)) {
                 // plainTextToken là chuỗi token thô (raw token) được tạo ra bởi Laravel Sanctum sau khi gọi createToken()
                 $token = $admin->createToken('token')->plainTextToken;
-                $data = [
+                $data1 = [
                     'token' => $token,
                     'admin' => $admin
                 ];
                 return response()->json([
                     'status' => 200,
-                    'data' => $data,
+                    'data' => $data1,
                     'message' => 'Đăng nhập thành công',
                 ], 200);
             }
@@ -95,11 +95,19 @@ class AuthAdminController
         $validate = $request->validate(
             [
                 'gmail' => 'unique:admins,gmail',
-                'tel' => 'unique:admins,tel',
+                'tel' => [
+                    'required',
+                    'digits:10',
+                    'regex:/^(03[2-9]|05[6|8|9]|07[0|6-9]|08[1-5])\d{7}$/',
+                    'unique:admins,tel',
+                ]
             ],
             [
                 'gmail.unique' => 'Gmail đã tồn tại.',
                 'tel.unique' => 'Số điện thoại đã tồn tại.',
+                'tel.regex' => 'Số điện thoại không đúng',
+                'tel.digits' => 'Số điện thoại không đúng 10 số',
+
             ]
         );
         try {
@@ -119,4 +127,5 @@ class AuthAdminController
             ], 400);
         }
     }
+    public function logout() {}
 }

@@ -18,3 +18,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 require base_path('app/Modules/Auth/routes/web.php');
+require base_path('app/Modules/User/routes/web.php');

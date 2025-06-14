@@ -15,13 +15,12 @@ export const useAuthStore = defineStore('auth', {
         async login(data) {
             try {
                 const response = await api.post("/auth/login", data)
-                const token = response.data.token
+                const token = response.data.data.token
 
                 this.token = token
                 localStorage.setItem('token', token)
 
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-                console.log(response);
 
                 // await this.getUser()
             } catch (error) {
@@ -51,14 +50,14 @@ export const useAuthStore = defineStore('auth', {
 
         //đăng xuất
         async logout() {
-            try {
-                await api.post('logout')
-            } catch (error) {
-                throw error
-            }
+            // try {
+            //     await api.post('/auth/logout')
+            // } catch (error) {
+            //     throw error
+            // }
             this.token = null
             this.user = null
-
+            localStorage.removeItem('token')
             delete axios.defaults.headers.common['Authorization']
         },
 
@@ -68,7 +67,7 @@ export const useAuthStore = defineStore('auth', {
             if (token) {
                 this.token = token
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-                this.getUser().catch(() => { })
+                // this.getUser().catch(() => { })
             }
         },
     }

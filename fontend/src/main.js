@@ -9,12 +9,13 @@ import router from './router'
 import { useAuthStore } from './stores/auth'
 
 const app = createApp(App)
+// cái này để giữ đăng nhập khi F5
 
 app.use(createPinia())
-app.use(router)
-
-// cái này để giữ đăng nhập khi F5
 const auth = useAuthStore()
 auth.initialize()
+app.use(router)
+
+
 
 app.mount('#app')

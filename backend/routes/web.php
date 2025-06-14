@@ -2,6 +2,7 @@
 
 use App\Modules\Product\Controllers\Admins\ProductController;
 use Illuminate\Support\Facades\Route;
+use App\Modules\User\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/test', [UserController::class, 'index']);
 
 // require base_path('app/Modules/Product/routes/web.php');
 // require base_path('app/Modules/Auth/routes/web.php');

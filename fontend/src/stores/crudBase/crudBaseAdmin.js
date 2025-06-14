@@ -1,16 +1,14 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import api from "@/axios";
-export const crudBase = defineStore('crudbase', {
-    state: () => ({
-        data: null,
+export const crudBaseAdmin = {
 
-    }),
     actions: {
         async getIndex(url) {
             try {
                 const response = await api.get(url)
                 this.data = response.data
+
             } catch (error) {
 
             }
@@ -54,4 +52,4 @@ export const crudBase = defineStore('crudbase', {
             }
         },
     }
-})
+}

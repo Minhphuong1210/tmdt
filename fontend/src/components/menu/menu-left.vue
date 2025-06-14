@@ -40,6 +40,24 @@ svg {
 .rotate-90 {
   transform: rotate(90deg);
 }
+/* logount */
+
+.logout-left {
+  padding: 20px;
+}
+.logout-left button {
+  width: 100%;
+  height: 50px;
+  border: none;
+  background: none;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+}
+.logout-left button:hover {
+  border: 1px solid #051343;
+}
 </style>
 <template>
   <nav class="menu-left">
@@ -206,7 +224,11 @@ svg {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link nav-item-c" href="#" @click="actionIcon('ic2')">
+          <router-link
+            class="nav-link nav-item-c"
+            :to="{ name: 'user.admin' }"
+            @click="actionIcon('ic2')"
+          >
             <p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -240,17 +262,35 @@ svg {
                 d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
               />
             </svg>
-          </a>
+          </router-link>
         </li>
       </ul>
+    </div>
+    <div class="logout-left">
+      <button @click="logout()">Đăng xuất</button>
     </div>
   </nav>
 </template>
 <script setup>
 import { ref } from "vue";
+import { useAuthStore } from "../../stores/auth.js";
+import { useRouter } from "vue-router";
+import api from "@/axios";
+import axios from "axios";
+const router = useRouter();
+
 const isOpen = ref({});
 function actionIcon(name) {
   isOpen.value[name] = !isOpen.value[name];
 }
+const auth = useAuthStore();
+const logout = async () => {
+  try {
+    await auth.logout();
+    router.push({ name: "admin.login" });
+  } catch (error) {
+    console.log(error);
+  }
+};
 </script>
 

@@ -100,7 +100,9 @@
           <div class="text-center mt-3">
             <p class="text-muted">
               Don't have an account ?
-              <a href="#" class="text-decoration-none text-teal">Signup</a>
+              <a href="/auth/register" class="text-decoration-none text-teal"
+                >Signup</a
+              >
             </p>
           </div>
         </div>
@@ -229,6 +231,8 @@ import { reactive, ref, toRefs } from "vue";
 import api from "@/axios";
 import axios from "axios";
 import { useAuthStore } from "../../../stores/auth.js";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 const errors = ref("");
 
@@ -240,12 +244,17 @@ const { text, password } = toRefs(data);
 const auth = useAuthStore();
 const login = async () => {
   try {
-    await auth.login({ ...data });
-    console.log(1);
-    // router.push("/dashboard");
+    await auth
+      .login({ ...data })
+      .then(() => {
+        router.push({ name: "dashboard" });
+      })
+      .catch((err) => {
+        console.error("Login failed", err);
+      });
   } catch (error) {
     errors.value = error.response.data.message;
-    console.log(errors.value);
+    // console.log(error);
   }
 };
 </script>

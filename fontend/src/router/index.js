@@ -12,7 +12,7 @@ router.beforeEach((to, from, next) => {
 
   // to.meta.guestOnly là route chỉ dành cho khách đã đăng nhập
   if (to.meta.guestOnly && auth.token) {
-    return next('/dashboard')
+    return next('admin/dashboard')
   }
   // to.meta.requiresAuth là route yêu cầu đăng nhập
   if (to.meta.requiresAuth && !auth.token) {
